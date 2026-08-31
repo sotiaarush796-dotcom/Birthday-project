@@ -13,3 +13,11 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
+
+# TypeScript build artifacts
+*.tsbuildinfo
+next-env.d.ts
+
+# This project uses pnpm (see pnpm-workspace.yaml) — do not track other lockfiles
+package-lock.json
+yarn.lock
