@@ -84,7 +84,7 @@ export const easterEggs: EasterEgg[] = [
   {
     id: 'egg-montage-final-frame',
     section: 'montage',
-    description: 'Placeholder: reaching the end of a video message reveals a small hidden clue.',
+    description: 'Placeholder: reaching the end of the main montage video reveals a small hidden clue.',
     triggerType: 'video-end',
     reward: 'placeholder-keyword-montage',
     discovered: false,
@@ -92,7 +92,7 @@ export const easterEggs: EasterEgg[] = [
   {
     id: 'egg-love-letter-signature',
     section: 'love-letter',
-    description: 'Placeholder: interacting with the signature/heart at the end of the love letter triggers the final payoff.',
+    description: 'Placeholder: interacting with the final letter or signature triggers the emotional payoff.',
     triggerType: 'long-press',
     reward: 'placeholder-final-reward',
     discovered: false,

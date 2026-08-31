@@ -17,6 +17,16 @@
 /** A person who appears in / is associated with a memory. Free-form label for now (e.g. a name or nickname). */
 export type MemoryPerson = string
 
+/** Metadata for a single photograph in a memory gallery. */
+export interface MemoryPhoto {
+  /** Path to the image file. */
+  src: string
+  /** Alt text for accessibility. */
+  alt: string
+  /** Optional caption shown below the photo in the memory detail view. */
+  caption?: string
+}
+
 export interface Memory {
   /** Stable unique id, referenced by songs (songId) and elsewhere. */
   id: string
@@ -28,8 +38,8 @@ export interface Memory {
 
   /** Primary/hero image for this memory. Same value as `src` for now. */
   coverPhoto: string
-  /** All photographs belonging to this memory/event. Currently just [coverPhoto] as a placeholder until a real gallery per memory is supplied. */
-  photos: string[]
+  /** All photographs belonging to this memory/event with optional per-photo captions. */
+  photos: MemoryPhoto[]
 
   /** Optional real-world location tied to this memory. */
   location?: string
@@ -150,10 +160,16 @@ const RAW_MEMORIES: Omit<Memory, 'coverPhoto' | 'photos'>[] = [
 export const memories: Memory[] = RAW_MEMORIES.map((m) => ({
   ...m,
   coverPhoto: m.src,
-  // Placeholder: only the cover photo is known per memory today. Real
-  // per-memory photo sets will replace this single-item array later
-  // without requiring any component changes (they already read `photos`).
-  photos: [m.src],
+  // Each photo includes metadata (src, alt, optional caption).
+  // Currently just the cover photo; real per-memory photo galleries
+  // can be extended here without changing components.
+  photos: [
+    {
+      src: m.src,
+      alt: m.title,
+      caption: m.caption, // Use the memory's caption as the first photo caption
+    },
+  ],
 }))
 
 export function getMemoryById(id: string): Memory | undefined {

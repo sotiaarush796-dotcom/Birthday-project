@@ -9,6 +9,7 @@ import { VinylPlayer } from '@/components/vinyl-player'
 import { MontageReel } from '@/components/montage-reel'
 import { LoveLetter } from '@/components/love-letter'
 import { EasterEggs } from '@/components/easter-eggs'
+import { DiscoveryProgress } from '@/components/discovery-progress'
 import { memories, type Memory } from '@/lib/memories'
 import { ExperienceProvider } from '@/lib/experience-context'
 
@@ -26,13 +27,14 @@ export default function Page() {
         <OpeningScreen onEnter={enter} />
         <div ref={scrapbookRef}>
           <PhotoGallery memories={memories} onSelect={setSelected} />
-          <HangingTimeline memories={memories} />
+          <HangingTimeline memories={memories} onSelect={setSelected} />
           <VinylPlayer />
           <MontageReel memories={memories} />
           <LoveLetter />
         </div>
         <MemoryDetail memory={selected} onClose={() => setSelected(null)} />
         <EasterEggs />
+        <DiscoveryProgress />
       </main>
     </ExperienceProvider>
   )

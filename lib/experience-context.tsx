@@ -70,6 +70,8 @@ interface ExperienceContextValue {
 
   // Progress
   getDiscoveryProgress: () => DiscoveryProgress
+  /** Returns true when ALL required discoveries are made: all 6 Easter eggs AND all 5 song keywords. */
+  isFinalUnlockComplete: () => boolean
 
   // Utility
   isReady: boolean
@@ -200,6 +202,13 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
     return { discovered, total, percentage }
   }, [discoveredEasterEggs, discoveredKeywords])
 
+  const isFinalUnlockComplete = useCallback((): boolean => {
+    // True when ALL required discoveries are made:
+    // - All 6 Easter eggs (one per section: opening, gallery, timeline, vinyl, montage, love-letter)
+    // - All 5 song keywords
+    return discoveredEasterEggs.size === easterEggs.length && discoveredKeywords.size === songs.length
+  }, [discoveredEasterEggs, discoveredKeywords])
+
   const resetProgress = useCallback(() => {
     setDiscoveredEasterEggs(new Set())
     setDiscoveredKeywords(new Set())
@@ -223,6 +232,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       completeClue,
       isClueCompleted,
       getDiscoveryProgress,
+      isFinalUnlockComplete,
       isReady,
       resetProgress,
     }),
@@ -240,6 +250,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       completeClue,
       isClueCompleted,
       getDiscoveryProgress,
+      isFinalUnlockComplete,
       isReady,
       resetProgress,
     ],
