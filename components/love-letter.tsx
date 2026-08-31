@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useExperience } from '@/lib/experience-context'
+import { loveLetterContent } from '@/lib/love-letter'
 
 export function LoveLetter() {
   const [open, setOpen] = useState(false)
@@ -31,9 +32,9 @@ export function LoveLetter() {
 
   return (
     <section className="paper-bg film-grain relative flex min-h-svh flex-col items-center justify-center px-6 py-24">
-      <p className="text-script text-3xl text-rose">and finally…</p>
+      <p className="text-script text-3xl text-rose">{loveLetterContent.tagline}</p>
       <h2 className="mt-1 text-balance text-center font-serif text-4xl font-light italic text-ink md:text-5xl">
-        One Last Letter
+        {loveLetterContent.heading}
       </h2>
       <div className="relative mt-10 w-full max-w-lg">
         <AnimatePresence mode="wait">
@@ -61,24 +62,14 @@ export function LoveLetter() {
             >
               <span className="tape left-6 -top-3 rotate-[-6deg] rounded-[1px]" />
               <span className="tape right-6 -top-3 rotate-[5deg] rounded-[1px]" />
-              <p className="text-script text-3xl text-rose">My dearest birthday girl,</p>
+              <p className="text-script text-3xl text-rose">{loveLetterContent.opening}</p>
               <div className="mt-4 space-y-4 font-serif text-base leading-relaxed text-cocoa">
-                <p>
-                  Twenty-one years ago the world got a little brighter, though it had no idea yet.
-                  I do now. Every single day I get to love you, I understand it a little more.
-                </p>
-                <p>
-                  Thank you for your laugh that I would recognize in any crowd, for the way you
-                  make ordinary Tuesdays feel like something worth remembering, and for letting me
-                  keep all these little moments pressed safely between these pages.
-                </p>
-                <p>
-                  Here is to twenty-one, and to every messy, golden, wildflower year that comes
-                  after it. I will be right here, holding your hand through all of them.
-                </p>
+                {loveLetterContent.body.map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
+                ))}
               </div>
               <p className="text-script mt-6 text-right text-3xl text-ink">
-                always yours {'\u2665'}
+                {loveLetterContent.closing}
               </p>
 
               {/* Hidden final message — revealed when ALL discoveries complete */}
@@ -91,11 +82,10 @@ export function LoveLetter() {
                     className="mt-6 border-t border-caramel/30 pt-4"
                   >
                     <p className="text-xs uppercase tracking-widest text-caramel/70">
-                      P.S. (Just between us)
+                      {loveLetterContent.postscript.label}
                     </p>
                     <p className="mt-3 font-serif text-sm leading-relaxed italic text-cocoa/90">
-                      I kept looking for reasons to love you more, but I've run out of room in my
-                      heart. Turns out, there's no limit—I just make more space, every single day.
+                      {loveLetterContent.postscript.message}
                     </p>
                   </motion.div>
                 )}
@@ -122,7 +112,7 @@ export function LoveLetter() {
         transition={{ delay: 0.4 }}
         className="mt-16 text-center text-xs uppercase tracking-[0.3em] text-cocoa/60"
       >
-        happy 21st birthday
+        {loveLetterContent.footer}
       </motion.p>
     </section>
   )
